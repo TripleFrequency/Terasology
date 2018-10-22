@@ -75,4 +75,10 @@ public class SideBitFlagTest {
         });
         assertEquals(Sets.newEnumSet(expected, Side.class), SideBitFlag.getSides(b1));
     }
+
+    @Test
+    public void givenSideBitAndSide_whenHasSide_thenReturnResult() {
+        boolean expected = (b1 & sideBits.get(s2)) > 0;
+        assertEquals(expected, SideBitFlag.hasSide(b1, s2));
+    }
 }
