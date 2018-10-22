@@ -40,7 +40,7 @@ public final class SideBitFlag {
         sideBits.put(Side.BACK, (byte) 0b100000);
     }
 
-    private SideBitFlag() {
+    SideBitFlag() {
     }
 
     public static byte getReverse(byte sides) {
