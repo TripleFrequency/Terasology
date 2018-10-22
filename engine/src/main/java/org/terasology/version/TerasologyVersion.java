@@ -55,7 +55,7 @@ public final class TerasologyVersion {
     private final String displayVersion;
     private final String engineVersion;
 
-    private TerasologyVersion() {
+    TerasologyVersion() {
         final Properties properties = new Properties();
         try (InputStream inStream = this.getClass().getResourceAsStream(VERSION_INFO_FILE)) {
             if (inStream != null) {
