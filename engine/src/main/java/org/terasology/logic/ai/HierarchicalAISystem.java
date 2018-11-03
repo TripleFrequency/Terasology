@@ -90,8 +90,6 @@ public class HierarchicalAISystem extends BaseComponentSystem implements
         HierarchicalAIComponent ai = entity
                 .getComponent(HierarchicalAIComponent.class);
         long tempTime = time.getGameTimeInMs();
-        //TODO remove next
-        long lastAttack = 0;
 
         // skip update if set to skip them
         if (tempTime - ai.lastProgressedUpdateAt < ai.updateFrequency) {
@@ -124,32 +122,26 @@ public class HierarchicalAISystem extends BaseComponentSystem implements
             //update
             if (tempTime - ai.lastChangeOfDangerAt > dangerChangeTime) {
                 dangerChangeTime = (long) (ai.dangerUpdateTime * random.nextDouble() * ai.hectic);
-                if (ai.hunter) {
-                    if (distanceToPlayer > ai.playerdistance
-                            && distanceToPlayer < ai.playerSense) {
-                        // Head to player
-                        Vector3f tempTarget = localPlayer.getPosition();
-                        if (ai.forgiving != 0) {
-                            ai.movementTarget.set(new Vector3f(
-                                    tempTarget.x + random.nextFloat(-ai.forgiving, ai.forgiving),
-                                    tempTarget.y + random.nextFloat(-ai.forgiving, ai.forgiving),
-                                    tempTarget.z + random.nextFloat(-ai.forgiving, ai.forgiving)
-                            ));
-                        } else {
-                            ai.movementTarget.set(tempTarget);
-                        }
-                        ai.inDanger = true;
-                        entity.saveComponent(ai);
-
-                        // System.out.print("\nhunting palyer\n");
+                if (ai.hunter && distanceToPlayer > ai.playerdistance && distanceToPlayer < ai.playerSense) {
+                    // Head to player
+                    Vector3f tempTarget = localPlayer.getPosition();
+                    if (ai.forgiving != 0) {
+                        ai.movementTarget.set(new Vector3f(
+                                tempTarget.x + random.nextFloat(-ai.forgiving, ai.forgiving),
+                                tempTarget.y + random.nextFloat(-ai.forgiving, ai.forgiving),
+                                tempTarget.z + random.nextFloat(-ai.forgiving, ai.forgiving)
+                        ));
+                    } else {
+                        ai.movementTarget.set(tempTarget);
                     }
+                    ai.inDanger = true;
+                    entity.saveComponent(ai);
+
+                    // System.out.print("\nhunting palyer\n");
                 }
                 // run opposite direction
-                if (ai.wild) {
-                    if (distanceToPlayer > ai.panicDistance
-                            && distanceToPlayer < ai.runDistance) {
-                        runAway(entity, ai);
-                    }
+                if (ai.wild && distanceToPlayer > ai.panicDistance && distanceToPlayer < ai.runDistance) {
+                    runAway(entity, ai);
                 }
                 ai.lastChangeOfDangerAt = time.getGameTimeInMs();
             }

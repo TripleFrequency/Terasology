@@ -58,10 +58,8 @@ public abstract class BaseEntityRef extends EntityRef {
 
     @Override
     public void setAlwaysRelevant(boolean alwaysRelevant) {
-        if (exists()) {
-            if (alwaysRelevant != isAlwaysRelevant()) {
-                setScope(alwaysRelevant ? GLOBAL : CHUNK);
-            }
+        if (exists() && alwaysRelevant != isAlwaysRelevant()) {
+            setScope(alwaysRelevant ? GLOBAL : CHUNK);
         }
     }
 

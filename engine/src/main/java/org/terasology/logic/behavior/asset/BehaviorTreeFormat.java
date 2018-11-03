@@ -42,10 +42,6 @@ import java.util.List;
  */
 @RegisterAssetFileFormat
 public class BehaviorTreeFormat extends AbstractAssetFileFormat<BehaviorTreeData> {
-    private static final Logger logger = LoggerFactory.getLogger(BehaviorTreeFormat.class);
-
-
-
     public BehaviorTreeFormat() {
         super("behavior");
     }
@@ -53,11 +49,10 @@ public class BehaviorTreeFormat extends AbstractAssetFileFormat<BehaviorTreeData
     public void save(OutputStream stream, BehaviorTreeData data) throws IOException {
         BehaviorTreeBuilder builder = CoreRegistry.get(BehaviorTreeBuilder.class);
         OutputStreamWriter writer = new OutputStreamWriter(stream, Charsets.UTF_8);
+        assert builder != null;
         writer.write(builder.toJson(data.getRoot()));
         writer.close();
     }
-
-
 
     @Override
     public BehaviorTreeData load(ResourceUrn resourceUrn, List<AssetDataFile> list) throws IOException {
@@ -71,10 +66,6 @@ public class BehaviorTreeFormat extends AbstractAssetFileFormat<BehaviorTreeData
         }
     }
 
-
-
-
-
     public BehaviorTreeData load(InputStream stream) {
         BehaviorTreeBuilder builder = CoreRegistry.get(BehaviorTreeBuilder.class);
 
@@ -87,6 +78,5 @@ public class BehaviorTreeFormat extends AbstractAssetFileFormat<BehaviorTreeData
         BehaviorTreeData data = new BehaviorTreeData();
         data.setRoot(node);
         return data;
-
     }
 }

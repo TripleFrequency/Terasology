@@ -47,7 +47,7 @@ public abstract class BaseLwjglSubsystem implements EngineSubsystem {
             try {
             // Pipes System.out and err to log, because that's where lwjgl writes it to.
             System.setOut(new PrintStream(System.out, false, Charsets.UTF_8.name()) {
-                private Logger lwjglLogger = LoggerFactory.getLogger("org.lwjgl");
+                private final Logger lwjglLogger = LoggerFactory.getLogger("org.lwjgl");
 
                 @Override
                 public void print(final String message) {
@@ -55,7 +55,7 @@ public abstract class BaseLwjglSubsystem implements EngineSubsystem {
                 }
             });
             System.setErr(new PrintStream(System.err, false, Charsets.UTF_8.name()) {
-                private Logger lwjglLogger = LoggerFactory.getLogger("org.lwjgl");
+                private final Logger lwjglLogger = LoggerFactory.getLogger("org.lwjgl");
 
                 @Override
                 public void print(final String message) {
