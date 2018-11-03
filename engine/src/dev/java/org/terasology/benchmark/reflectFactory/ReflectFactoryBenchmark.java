@@ -31,8 +31,6 @@ import java.util.List;
  *
  */
 public final class ReflectFactoryBenchmark {
-    private static final Logger logger = LoggerFactory.getLogger(ReflectFactoryBenchmark.class);
-
     private ReflectFactoryBenchmark() {
     }
 
