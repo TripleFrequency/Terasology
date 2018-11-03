@@ -76,14 +76,14 @@ public class SpriteParticleRenderer implements RenderSystem {
     private DisplayList drawUnitQuad;
 
 
-    public void finalize() throws Throwable {
+    protected void finalize() throws Throwable {
         super.finalize();
         if (null != drawUnitQuad) {
             drawUnitQuad.dispose();
         }
     }
 
-    public void dispose() {
+    protected void dispose() {
         if (null != drawUnitQuad) {
             drawUnitQuad.dispose();
         }

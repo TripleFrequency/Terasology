@@ -8,6 +8,9 @@ apply plugin: 'base'
 // For generating IntelliJ project files
 apply plugin: 'idea'
 
+// add PMD plugin for quality checks on Java source files
+apply plugin: 'pmd'
+
 // The root project should not be an eclipse project. It keeps eclipse (4.2) from finding the sub-projects.
 //apply plugin: 'eclipse'
 

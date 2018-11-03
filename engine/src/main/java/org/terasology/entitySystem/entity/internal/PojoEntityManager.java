@@ -535,15 +535,8 @@ public class PojoEntityManager implements EngineEntityManager {
 
     public Optional<EngineEntityPool> getPool(long id) {
         Optional<EngineEntityPool> pool = Optional.ofNullable(poolMap.get(id));
-        if (!pool.isPresent()) {
-            if (id != NULL_ID) {
-                if (isExistingEntity(id)) {
-                    // TODO: Entity pools assignment is not needed as of now, can be enabled later on when necessary.
-                    // logger.error("Entity {} doesn't have an assigned pool", id);
-                } else {
-                    logger.error("Entity {} doesn't exist", id);
-                }
-            }
+        if (!pool.isPresent() && id != NULL_ID && !isExistingEntity(id)) {
+            logger.error("Entity {} doesn't exist", id);
         }
         return pool;
     }
@@ -630,16 +623,6 @@ public class PojoEntityManager implements EngineEntityManager {
             subscriber.onEntityComponentChange(changedEntity, component);
         }
     }
-
-    /**
-     * This method gets called when the entity gets reactivated. e.g. after storage an entity needs to be reactivated.
-     */
-    private void notifyReactivation(EntityRef entity, Collection<Component> components) {
-        for (EntityChangeSubscriber subscriber : subscribers) {
-            subscriber.onReactivation(entity, components);
-        }
-    }
-
 
     /**
      * This method gets called before an entity gets deactivated (e.g. for storage).

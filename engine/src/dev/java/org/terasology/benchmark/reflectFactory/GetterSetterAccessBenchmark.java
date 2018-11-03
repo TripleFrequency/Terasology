@@ -25,7 +25,6 @@ import org.terasology.reflection.reflect.ReflectFactory;
 /**
  */
 public class GetterSetterAccessBenchmark extends AbstractBenchmark {
-
     private static final Logger logger = LoggerFactory.getLogger(ConstructionBenchmark.class);
     private ReflectFactory reflectFactory;
     private FieldAccessor accessor;
@@ -51,7 +50,6 @@ public class GetterSetterAccessBenchmark extends AbstractBenchmark {
     @Override
     public void run() {
         accessor.setValue(comp, i++);
-        int val = (int) accessor.getValue(comp);
-        val++;
+        accessor.getValue(comp);
     }
 }

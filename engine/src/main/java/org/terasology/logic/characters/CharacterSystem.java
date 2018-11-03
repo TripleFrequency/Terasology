@@ -78,12 +78,6 @@ public class CharacterSystem extends BaseComponentSystem implements UpdateSubscr
     @In
     private Time time;
 
-    @In
-    private PlayerTargetSystem targetSystem;
-
-    @In
-    private BlockEntityRegistry blockRegistry;
-
     @ReceiveEvent
     public void beforeDestroy(BeforeDestroyEvent event, EntityRef character, CharacterComponent characterComponent, AliveCharacterComponent aliveCharacterComponent) {
         if (character.hasComponent(PlayerCharacterComponent.class)) {
@@ -196,10 +190,8 @@ public class CharacterSystem extends BaseComponentSystem implements UpdateSubscr
     @ReceiveEvent(components = LocationComponent.class, netFilter = RegisterMode.AUTHORITY)
     public void onAttackRequest(AttackRequest event, EntityRef character, CharacterComponent characterComponent) {
         // if an item is used,  make sure this entity is allowed to attack with it
-        if (event.getItem().exists()) {
-            if (!character.equals(event.getItem().getOwner())) {
-                return;
-            }
+        if (event.getItem().exists() && !character.equals(event.getItem().getOwner())) {
+            return;
         }
 
         OnItemUseEvent onItemUseEvent = new OnItemUseEvent();

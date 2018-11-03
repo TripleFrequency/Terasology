@@ -39,12 +39,8 @@ import org.terasology.rendering.world.WorldRenderer;
  *
  */
 public class NetworkEntitySystem extends BaseComponentSystem {
-
     @In
     private EntityManager entityManager;
-
-    @In
-    private WorldRenderer worldRenderer;
 
     private NetworkSystemImpl networkSystem;
 

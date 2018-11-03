@@ -70,14 +70,6 @@ public class ThreadManagerSubsystem implements EngineSubsystem, ThreadManager {
         }
     }
 
-    private void stopThreads() {
-        commonThreadPool.shutdown(new ShutdownTask(), false);
-    }
-
-    private void restartThreads() {
-        commonThreadPool.restart();
-    }
-
     @Override
     public String getName() {
         return "Thread Management";

@@ -95,10 +95,6 @@ public class LocalPlayerSystem extends BaseComponentSystem implements UpdateSubs
     private Camera playerCamera;
     @In
     private MovementDebugCommands movementDebugCommands;
-    @In
-    private PhysicsEngine physics;
-    @In
-    private DelayManager delayManager;
 
     @In
     private Config config;

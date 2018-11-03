@@ -49,9 +49,6 @@ import java.util.Optional;
 @RegisterSystem
 @Share(MovementDebugCommands.class)
 public class MovementDebugCommands extends BaseComponentSystem {
-
-    private static final Logger logger = LoggerFactory.getLogger(MovementDebugCommands.class);
-
     @In
     private PhysicsEngine physics;
 

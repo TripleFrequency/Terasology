@@ -46,9 +46,6 @@ import org.terasology.world.chunks.internal.ChunkImpl;
  * TODO: more flexibility for estimated extents
  */
 public class TreeTests {
-
-    private static final Logger logger = LoggerFactory.getLogger(TreeTests.class);
-
     private BlockManager blockManager;
     private BiomeManager biomeManager;
 
@@ -132,10 +129,8 @@ public class TreeTests {
             treeGen.generate(blockManagerLocal, chunk, random, relPos.x, relPos.y, relPos.z);
         }
 
-        Vector3i ext = new Vector3i(max).sub(min);
-//        logger.info(String.format("Min: %12s  Max: %12s  Extent: %s", min, max, ext));
-
-        return ext;
+        // logger.info(String.format("Min: %12s  Max: %12s  Extent: %s", min, max, ext));
+        return new Vector3i(max).sub(min);
     }
 
     private void minimize(Vector3i v, Vector3i other) {

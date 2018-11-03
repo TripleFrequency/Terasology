@@ -27,12 +27,10 @@ import org.terasology.rendering.nui.layouts.PropertyLayout;
  *
  */
 public class DebugProperties extends CoreHudWidget {
-    private ColumnLayout container;
     private PropertyLayout propertyLayout;
 
     @Override
     public void initialise() {
-        container = find("container", ColumnLayout.class);
         propertyLayout = find("properties", PropertyLayout.class);
     }
 

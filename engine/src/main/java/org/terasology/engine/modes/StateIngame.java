@@ -59,8 +59,6 @@ import java.util.Collections;
  */
 public class StateIngame implements GameState {
 
-    private static final Logger logger = LoggerFactory.getLogger(StateIngame.class);
-
     private ComponentSystemManager componentSystemManager;
     private EventSystem eventSystem;
     private NUIManager nuiManager;

@@ -102,8 +102,6 @@ public class BulletPhysics implements PhysicsEngine {
     private final Deque<RigidBodyRequest> insertionQueue = Lists.newLinkedList();
     private final Deque<BulletRigidBody> removalQueue = Lists.newLinkedList();
 
-    private final BulletCollisionShapeFactory collisionShapeFactory = new BulletCollisionShapeFactory();
-
     private final CollisionDispatcher dispatcher;
     private final BroadphaseInterface broadphase;
     private final DiscreteDynamicsWorld discreteDynamicsWorld;
@@ -608,11 +606,6 @@ public class BulletPhysics implements PhysicsEngine {
             body.pendingForce.y = 0;
             body.pendingForce.z = 0;
         }
-    }
-
-    private void addRigidBody(BulletRigidBody body) {
-        short filter = (short) (CollisionFilterGroups.DEFAULT_FILTER | CollisionFilterGroups.STATIC_FILTER | CollisionFilterGroups.SENSOR_TRIGGER);
-        insertionQueue.add(new RigidBodyRequest(body, CollisionFilterGroups.DEFAULT_FILTER, filter));
     }
 
     private void addRigidBody(BulletRigidBody body, List<CollisionGroup> groups, List<CollisionGroup> filter) {

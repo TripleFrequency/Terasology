@@ -42,8 +42,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-/**
- */
 @RegisterSystem(RegisterMode.AUTHORITY)
 @Share(value = InventoryManager.class)
 public class InventoryAuthoritySystem extends BaseComponentSystem implements InventoryManager {
