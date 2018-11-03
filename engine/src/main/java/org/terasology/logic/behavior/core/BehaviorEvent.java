@@ -20,6 +20,6 @@ package org.terasology.logic.behavior.core;
  * TODO maybe change naming not to confuse with the engine's Events?
  */
 public class BehaviorEvent {
-    public BehaviorEvent(String name) {
+    public BehaviorEvent() {
     }
 }

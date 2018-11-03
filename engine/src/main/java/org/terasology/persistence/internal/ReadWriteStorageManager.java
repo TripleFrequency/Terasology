@@ -173,7 +173,7 @@ public final class ReadWriteStorageManager extends AbstractStorageManager implem
     @Override
     public void deactivatePlayer(Client client) {
         EntityRef character = client.getEntity().getComponent(ClientComponent.class).character;
-        PlayerStoreBuilder playerStoreBuilder = createPlayerStore(client, character);
+        PlayerStoreBuilder playerStoreBuilder = createPlayerStore(character);
         EntityData.PlayerStore playerStore = playerStoreBuilder.build(getEntityManager());
         deactivateOrDestroyEntityRecursive(character);
         unloadedAndUnsavedPlayerMap.put(client.getId(), playerStore);
@@ -278,7 +278,7 @@ public final class ReadWriteStorageManager extends AbstractStorageManager implem
             // If there is a newer undisposed version of the player,we don't need to save the disposed version:
             unloadedAndSavingPlayerMap.remove(client.getId());
             EntityRef character = client.getEntity().getComponent(ClientComponent.class).character;
-            saveTransactionBuilder.addLoadedPlayer(client.getId(), createPlayerStore(client, character));
+            saveTransactionBuilder.addLoadedPlayer(client.getId(), createPlayerStore(character));
         }
 
         for (Map.Entry<String, EntityData.PlayerStore> entry : unloadedAndSavingPlayerMap.entrySet()) {
@@ -286,7 +286,7 @@ public final class ReadWriteStorageManager extends AbstractStorageManager implem
         }
     }
 
-    private PlayerStoreBuilder createPlayerStore(Client client, EntityRef character) {
+    private PlayerStoreBuilder createPlayerStore(EntityRef character) {
         LocationComponent location = character.getComponent(LocationComponent.class);
         Vector3f relevanceLocation;
         if (location != null) {

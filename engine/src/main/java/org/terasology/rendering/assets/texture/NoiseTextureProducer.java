@@ -23,7 +23,6 @@ import org.terasology.assets.module.annotations.RegisterAssetDataProducer;
 import org.terasology.engine.TerasologyConstants;
 import org.terasology.naming.Name;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
@@ -57,7 +56,7 @@ public class NoiseTextureProducer implements AssetDataProducer<TextureData> {
     }
 
     @Override
-    public Optional<TextureData> getAssetData(ResourceUrn urn) throws IOException {
+    public Optional<TextureData> getAssetData(ResourceUrn urn) {
         if (TerasologyConstants.ENGINE_MODULE.equals(urn.getModuleName()) && TextureUtil.NOISE_RESOURCE_NAME.equals(urn.getResourceName())) {
             Name fragmentName = urn.getFragmentName();
             if (!fragmentName.isEmpty()) {
@@ -68,7 +67,6 @@ public class NoiseTextureProducer implements AssetDataProducer<TextureData> {
                     long seed = Long.parseLong(parts[2]);
                     int min = Integer.parseInt(parts[3]);
                     int max = Integer.parseInt(parts[4]);
-                    TextureData textureData;
                     switch (type) {
                         case "white":
                             return Optional.of(TextureDataFactory.createWhiteNoiseTexture(size, seed, min, max));
