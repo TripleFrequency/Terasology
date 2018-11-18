@@ -8,6 +8,7 @@
 !.gitattributes
 !.gitignore
 !.github
+!.circleci
 
 # Ignore subdirs with their own Git roots. PC Facade and Core module are bundled with the main repo.
 extensions
