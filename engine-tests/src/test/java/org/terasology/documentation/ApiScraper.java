@@ -17,6 +17,8 @@ package org.terasology.documentation;
 
 import com.google.common.collect.Multimaps;
 import com.google.common.collect.SortedSetMultimap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.terasology.engine.module.ExternalApiWhitelist;
 import org.terasology.engine.module.ModuleManager;
 import org.terasology.module.ModuleEnvironment;
@@ -32,6 +34,10 @@ import java.util.stream.Collectors;
  * Enumerates all classes and packages that are annotated with {@link API}.
  */
 public final class ApiScraper {
+
+    private static final Logger logger = LoggerFactory.getLogger(ApiScraper.class);
+
+
     private ApiScraper() {
         // Private constructor, utility class
     }
@@ -62,7 +68,7 @@ public final class ApiScraper {
             }
 
             if (location == null) {
-                System.out.println("Failed to get a class/package location, skipping " + apiClass);
+                logger.info("Failed to get a class/package location, skipping " + apiClass);
                 continue;
             }
 
@@ -104,7 +110,7 @@ public final class ApiScraper {
                     break;
 
                 default :
-                    System.out.println("Unknown protocol for: " + apiClass + ", came from " + location);
+                    logger.info("Unknown protocol for: " + apiClass + ", came from " + location);
             }
         }
         sortedApi.putAll("external", ExternalApiWhitelist.CLASSES.stream()
@@ -112,13 +118,13 @@ public final class ApiScraper {
         sortedApi.putAll("external", ExternalApiWhitelist.PACKAGES.stream()
                 .map(packagee->packagee + " (PACKAGE)").collect(Collectors.toSet()));
 
-        System.out.println("# Modding API:\n");
+        logger.info("# Modding API:\n");
         for (String key : sortedApi.keySet()) {
-            System.out.println("## " + key + "\n");
+            logger.info("## " + key + "\n");
             for (String value : sortedApi.get(key)) {
-                System.out.println("* " + value);
+                logger.info("* " + value);
             }
-            System.out.println("");
+            logger.info("");
         }
     }
 }

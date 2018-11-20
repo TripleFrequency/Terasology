@@ -67,9 +67,6 @@ public class TelemetrySystem extends BaseComponentSystem implements UpdateSubscr
     private Config config;
 
     @In
-    private EntityManager entityManager;
-
-    @In
     private LocalPlayer localPlayer;
 
     public void update(float delta) {

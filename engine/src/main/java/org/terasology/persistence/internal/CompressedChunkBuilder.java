@@ -85,7 +85,10 @@ public class CompressedChunkBuilder {
             EntityData.ChunkStore store = encoded.build();
             result = compressChunkStore(store);
         }
-        return result;
+
+        byte[] temp = result.clone();
+
+        return temp;
     }
 
     private byte[] compressChunkStore(EntityData.ChunkStore store) {

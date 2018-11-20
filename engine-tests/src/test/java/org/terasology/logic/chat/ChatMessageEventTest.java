@@ -32,7 +32,6 @@ public class ChatMessageEventTest {
 
     @Test
     public void ifPassedMockSenderAndString_whenGetFormattedMessage_thenReturnFormattedMessage() {
-        String message = "Hello, World!";
         Message expected = new Message("Elliott: Hello, World!");
         when(cme.getFormattedMessage()).thenReturn(expected);
         assertEquals(expected, cme.getFormattedMessage());

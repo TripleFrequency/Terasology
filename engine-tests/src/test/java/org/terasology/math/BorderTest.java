@@ -38,7 +38,6 @@ public class BorderTest {
 
     @Test
     public void testBorder_whenActualBoundaries_thenResult() {
-        Object b3 = new Border(1, 1,1,1);
         Border b4 = b1;
         assertEquals(b4.getLeft(), 1);
         assertEquals(b4.getRight(), 1 );

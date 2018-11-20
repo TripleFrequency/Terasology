@@ -15,6 +15,9 @@
  */
 package org.terasology.benchmark;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
@@ -24,52 +27,54 @@ import java.text.NumberFormat;
  */
 public class PrintToConsoleCallback implements BenchmarkCallback {
 
+    private static final Logger logger = LoggerFactory.getLogger(PrintToConsoleCallback.class);
+
     private static final NumberFormat PERCENT_FORMAT = new DecimalFormat("##0.0");
 
     @Override
     public void begin(Benchmark benchmark, int benchmarkIndex, int benchmarkCount) {
-        System.out.println("Benchmark " + benchmarkIndex + " / " + benchmarkCount + ": " + benchmark.getTitle());
+        logger.info("Benchmark " + benchmarkIndex + " / " + benchmarkCount + ": " + benchmark.getTitle());
     }
 
     @Override
     public void warmup(Benchmark benchmark, boolean finished) {
         if (finished) {
-            System.out.print("Go! ");
+            logger.info("Go! ");
         } else {
-            System.out.print("Warmup... ");
+            logger.info("Warmup... ");
         }
     }
 
     @Override
     public void progress(Benchmark benchmark, double percent) {
-        System.out.print(PERCENT_FORMAT.format(percent) + "% ");
+        logger.info(PERCENT_FORMAT.format(percent) + "% ");
     }
 
     @Override
     public void success(BenchmarkResult result) {
-        System.out.println();
-        System.out.println();
-        System.out.println(Benchmarks.printResult(result));
-        System.out.println();
+        logger.info("\n");
+        logger.info("\n");
+        logger.info(Benchmarks.printResult(result).toString());
+        logger.info("\n");
     }
 
     @Override
     public void aborted(BenchmarkResult result) {
-        System.out.println();
-        System.out.println("Benchmark aborted: " + result.getTitle());
-        System.out.println("Number of errors: " + result.getNumErrors());
+        logger.info("\n");
+        logger.info("Benchmark aborted: " + result.getTitle());
+        logger.info("Number of errors: " + result.getNumErrors());
     }
 
     @Override
     public void error(BenchmarkError.Type type, Exception e, BenchmarkResult result) {
-        System.out.println("Benchmark error of type: " + type);
-        e.printStackTrace();
+        logger.info("Benchmark error of type: " + type);
+        logger.error(e.getMessage(), e);
     }
 
     @Override
     public void fatal(Exception e) {
-        System.out.println("Fatal benchmark error: " + e.getClass().getSimpleName());
-        e.printStackTrace();
+        logger.info("Fatal benchmark error: " + e.getClass().getSimpleName());
+        logger.error(e.getMessage(), e);
     }
 
 }

@@ -392,11 +392,9 @@ public class LocalPlayerSystem extends BaseComponentSystem implements UpdateSubs
     @Override
     public void renderOverlay() {
         // Display the block the player is aiming at
-        if (config.getRendering().isRenderPlacingBox()) {
-            if (aabb != null) {
+        if (config.getRendering().isRenderPlacingBox() && aabb != null) {
                 aabbRenderer.setAABB(aabb);
                 aabbRenderer.render(2f);
-            }
         }
     }
 

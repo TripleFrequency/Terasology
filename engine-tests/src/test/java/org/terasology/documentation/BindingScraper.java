@@ -17,6 +17,8 @@ package org.terasology.documentation;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.terasology.engine.module.ModuleManager;
 import org.terasology.input.DefaultBinding;
 import org.terasology.input.DefaultBindings;
@@ -32,6 +34,8 @@ import java.util.Map;
  * Enumerates all default key bindings and writes them sorted by ID to the console
  */
 public final class BindingScraper {
+
+    private static final Logger logger = LoggerFactory.getLogger(BindingScraper.class);
 
     private BindingScraper() {
         // Utility class, no instances
@@ -68,14 +72,14 @@ public final class BindingScraper {
             if (cat.isEmpty()) {
                 InputCategory inputCategory = findEntry(categories, id);
                 if (inputCategory == null) {
-                    System.out.println("Invalid category for: " + info.id());
+                    logger.info("Invalid category for: " + info.id());
                 }
             } else {
                 InputCategory inputCategory = findCategory(categories, cat);
                 if (inputCategory != null) {
                     categories.put(inputCategory, id);
                 } else {
-                    System.out.println("Invalid category for: " + info.id());
+                    logger.info("Invalid category for: " + info.id());
                 }
             }
 
@@ -99,10 +103,10 @@ public final class BindingScraper {
         }
 
         for (InputCategory row : categories.keySet()) {
-            System.out.println("# " + row.displayName());
+            logger.info("# " + row.displayName());
 
             categories.get(row).stream().filter(entry -> entry != null).forEach(entry ->
-                    System.out.println(desc.get(entry) + ": " + keys.get(entry)));
+                    logger.info(desc.get(entry) + ": " + keys.get(entry)));
         }
     }
 

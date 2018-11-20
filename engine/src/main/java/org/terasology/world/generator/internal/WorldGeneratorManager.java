@@ -157,9 +157,7 @@ public class WorldGeneratorManager {
     private static boolean isValidWorldGenerator(Class<?> generatorClass) {
         try {
             if (WorldGenerator.class.isAssignableFrom(generatorClass)) {
-                if (generatorClass.getConstructor(SimpleUri.class) != null) {
-                    return true;
-                }
+                return generatorClass.getConstructor(SimpleUri.class) != null;
             }
             return false;
             // Being generous in catching here, because if the module is broken due to code changes or missing classes the world generator is invalid

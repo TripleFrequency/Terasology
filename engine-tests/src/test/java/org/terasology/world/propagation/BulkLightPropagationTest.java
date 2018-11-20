@@ -46,7 +46,6 @@ public class BulkLightPropagationTest extends TerasologyTestingEnvironment {
     private Block weakLight;
     private Block mediumLight;
     private Block solid;
-    private Block solidMediumLight;
     private LightPropagationRules lightRules;
 
     private Region3i testingRegion = Region3i.createFromMinMax(new Vector3i(-ChunkConstants.SIZE_X, -ChunkConstants.SIZE_Y, -ChunkConstants.SIZE_Z),
@@ -101,7 +100,6 @@ public class BulkLightPropagationTest extends TerasologyTestingEnvironment {
         solidMediumLightData.getBaseSection().setLuminance((byte) 5);
         solidMediumLightData.setBlockFamily(SymmetricFamily.class);
         assetManager.loadAsset(new ResourceUrn("engine:solidMediumLight"), solidMediumLightData, BlockFamilyDefinition.class);
-        solidMediumLight = blockManager.getBlock(new BlockUri(new ResourceUrn("engine:solidMediumLight")));
 
         air = blockManager.getBlock(BlockManager.AIR_ID);
     }

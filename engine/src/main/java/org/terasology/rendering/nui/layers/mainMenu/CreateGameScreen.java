@@ -404,7 +404,6 @@ public class CreateGameScreen extends CoreScreenLayer {
 
     // Sets the default generator of the passed in gameplay module. Make sure it's already selected.
     private void setDefaultGeneratorOfGameplayModule(Module module) {
-        ModuleConfig moduleConfig = config.getDefaultModSelection();
 
         // Set the default generator of the selected gameplay module
         SimpleUri defaultWorldGenerator = StandardModuleExtension.getDefaultWorldGenerator(module);
@@ -423,10 +422,8 @@ public class CreateGameScreen extends CoreScreenLayer {
         List<Module> gameplayModules = Lists.newArrayList();
         for (Name moduleId : moduleManager.getRegistry().getModuleIds()) {
             Module latestVersion = moduleManager.getRegistry().getLatestModuleVersion(moduleId);
-            if (!latestVersion.isOnClasspath()) {
-                if (StandardModuleExtension.isGameplayModule(latestVersion)) {
-                    gameplayModules.add(latestVersion);
-                }
+            if (!latestVersion.isOnClasspath() && StandardModuleExtension.isGameplayModule(latestVersion) ) {
+                gameplayModules.add(latestVersion);
             }
         }
         Collections.sort(gameplayModules, (o1, o2) ->

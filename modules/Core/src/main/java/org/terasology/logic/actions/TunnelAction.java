@@ -41,9 +41,6 @@ public class TunnelAction extends BaseComponentSystem {
     private WorldProvider worldProvider;
 
     @In
-    private Physics physicsRenderer;
-
-    @In
     private BlockEntityRegistry blockEntityRegistry;
 
     @In

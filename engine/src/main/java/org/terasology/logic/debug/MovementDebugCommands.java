@@ -49,6 +49,9 @@ import java.util.Optional;
 @RegisterSystem
 @Share(MovementDebugCommands.class)
 public class MovementDebugCommands extends BaseComponentSystem {
+
+    private static final Logger logger = LoggerFactory.getLogger(MovementDebugCommands.class);
+
     @In
     private PhysicsEngine physics;
 
@@ -250,7 +253,7 @@ public class MovementDebugCommands extends BaseComponentSystem {
             }
             return "";
         } catch (NullPointerException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
             return "";
         }
     }
@@ -271,7 +274,7 @@ public class MovementDebugCommands extends BaseComponentSystem {
             }
             return "";
         } catch (NullPointerException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
             return "";
         }
     }

@@ -431,7 +431,9 @@ public final class AABB {
             vertices[7] = new Vector3f(min.x, max.y, min.z);
         }
 
-        return vertices;
+        Vector3f[] temp = vertices.clone();
+
+        return temp;
     }
 
     @Override

@@ -42,10 +42,7 @@ import java.util.ArrayList;
 @SuppressWarnings("serial")
 public final class MainWindow extends JFrame implements ActionListener, WindowListener, StateChangeSubscriber {
 
-    private static final Logger logger = LoggerFactory.getLogger(MainWindow.class);
-
     private TeraEd teraEd;
-    private TerasologyEngine engine;
 
     private BorderLayout borderLayout;
     private Viewport viewport;
@@ -59,17 +56,15 @@ public final class MainWindow extends JFrame implements ActionListener, WindowLi
     private JMenuItem fileMenuExitItem;
 
     private JMenu shaderPropertiesMenu;
-    private java.util.List<JMenuItem> shaderPropertyMenuEntries = new ArrayList<>(64);
 
     private JMenu propertiesMenu;
     private JMenuItem propertiesMenuScene;
 
     private JScrollPane propertyPanelScrollPane;
 
-    public MainWindow(TeraEd teraEd, TerasologyEngine engine) {
+    public MainWindow(TeraEd teraEd) {
         this.teraEd = teraEd;
         this.addWindowListener(this);
-        this.engine = engine;
 
         viewport = new Viewport();
 

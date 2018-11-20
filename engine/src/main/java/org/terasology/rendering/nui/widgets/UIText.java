@@ -359,13 +359,10 @@ public class UIText extends CoreWidget {
         boolean eventHandled = false;
         if (isEnabled() && event.isDown() && lastFont != null) {
             if (isShowingHintText && !readOnly) {
-                if (event.getKeyboard().isKeyDown(Keyboard.KeyId.LEFT_CTRL)
-                        || event.getKeyboard().isKeyDown(Keyboard.KeyId.RIGHT_CTRL)) {
-                    if (event.getKey() == Keyboard.Key.V) {
-                        removeSelection();
-                        paste();
-                        eventHandled = true;
-                    }
+                if ((event.getKeyboard().isKeyDown(Keyboard.KeyId.LEFT_CTRL) || event.getKeyboard().isKeyDown(Keyboard.KeyId.RIGHT_CTRL)) && event.getKey() == Keyboard.Key.V) {
+                    removeSelection();
+                    paste();
+                    eventHandled = true;
                 }
                 if (event.getKey() == Keyboard.Key.ENTER || event.getKey() == Keyboard.Key.NUMPAD_ENTER) {
                     for (ActivateEventListener listener : activationListeners) {
@@ -414,13 +411,10 @@ public class UIText extends CoreWidget {
                         break;
                     }
                     default: {
-                        if (event.getKeyboard().isKeyDown(KeyId.LEFT_CTRL)
-                                || event.getKeyboard().isKeyDown(KeyId.RIGHT_CTRL)) {
-                            if (event.getKey() == Keyboard.Key.C) {
-                                copySelection();
-                                eventHandled = true;
-                                break;
-                            }
+                        if ((event.getKeyboard().isKeyDown(KeyId.LEFT_CTRL) || event.getKeyboard().isKeyDown(KeyId.RIGHT_CTRL)) && event.getKey() == Keyboard.Key.C ) {
+                            copySelection();
+                            eventHandled = true;
+                            break;
                         }
                     }
                 }
@@ -456,12 +450,9 @@ public class UIText extends CoreWidget {
                         }
                         case KeyId.ENTER:
                         case KeyId.NUMPAD_ENTER: {
-                            if (event.getKeyboard().isKeyDown(Keyboard.Key.LEFT_SHIFT.getId())
-                                    || event.getKeyboard().isKeyDown(Keyboard.Key.RIGHT_SHIFT.getId())) {
-                                if (multiline) {
-                                    setText(fullText + "\n");
-                                    increaseCursorPosition(1);
-                                }
+                            if ((event.getKeyboard().isKeyDown(Keyboard.Key.LEFT_SHIFT.getId()) || event.getKeyboard().isKeyDown(Keyboard.Key.RIGHT_SHIFT.getId())) && multiline ) {
+                                setText(fullText + "\n");
+                                increaseCursorPosition(1);
                             }
                             for (ActivateEventListener listener : activationListeners) {
                                 listener.onActivated(this);

@@ -75,7 +75,6 @@ public class CharacterInventorySystem extends BaseComponentSystem {
     @In
     private Physics physics;
 
-    private long lastInteraction;
     private long lastTimeThrowInteraction;
 
     @ReceiveEvent(netFilter = RegisterMode.AUTHORITY)
@@ -229,11 +228,9 @@ public class CharacterInventorySystem extends BaseComponentSystem {
 
     @ReceiveEvent(netFilter = RegisterMode.AUTHORITY)
     public void onGiveItemToEntity(GiveItemEvent event, EntityRef entity) {
-        if (event.getTargetEntity().hasComponent(InventoryComponent.class)) {
-            if (inventoryManager.giveItem(event.getTargetEntity(), entity, entity)) {
-                event.getTargetEntity().send(new PlaySoundForOwnerEvent(Assets.getSound("engine:Loot").get(), 1.0f));
-                event.setHandled(true);
-            }
+        if (event.getTargetEntity().hasComponent(InventoryComponent.class) && inventoryManager.giveItem(event.getTargetEntity(), entity, entity)) {
+            event.getTargetEntity().send(new PlaySoundForOwnerEvent(Assets.getSound("engine:Loot").get(), 1.0f));
+            event.setHandled(true);
         }
     }
 

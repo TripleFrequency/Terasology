@@ -14,7 +14,6 @@ import java.util.Set;
 import static org.junit.Assert.assertEquals;
 
 public class SideBitFlagTest {
-    private SideBitFlag sut;
     private static TObjectByteMap<Side> sideBits = new TObjectByteHashMap<>();
     private Set<Side> sideSet;
     private Side s1;
@@ -24,7 +23,6 @@ public class SideBitFlagTest {
 
     @Before
     public void setup() {
-        sut = new SideBitFlag();
         sideSet = new HashSet<>();
     }
 

@@ -66,13 +66,7 @@ public class BlockDamageAuthoritySystem extends BaseComponentSystem {
     private EntityManager entityManager;
 
     @In
-    private AudioManager audioManager;
-
-    @In
     private WorldAtlas worldAtlas;
-
-    @In
-    private BlockManager blockManager;
 
     private Random random = new FastRandom();
 

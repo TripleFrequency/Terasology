@@ -60,8 +60,6 @@ import static org.mockito.Mockito.when;
  */
 public class PrefabTest {
 
-    private static final Logger logger = LoggerFactory.getLogger(PrefabTest.class);
-
     private PrefabManager prefabManager;
 
     @Before

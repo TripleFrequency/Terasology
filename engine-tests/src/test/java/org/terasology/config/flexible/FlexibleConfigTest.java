@@ -248,14 +248,27 @@ public class FlexibleConfigTest {
 
             @Override
             public boolean equals(Object o) {
-                if (this == o) return true;
-                if (o == null || getClass() != o.getClass()) return false;
+                if (this == o) {
+                    return true;
+                }
+                if (o == null || getClass() != o.getClass()) {
+                    return false;
+                }
 
                 TestClass testClass = (TestClass) o;
 
-                if (a != testClass.a) return false;
-                if (b != null ? !b.equals(testClass.b) : testClass.b != null) return false;
+                if (a != testClass.a) {
+                    return false;
+                }
+                if (b != null ? !b.equals(testClass.b) : testClass.b != null) {
+                    return false;
+                }
                 return c == testClass.c;
+            }
+
+            @Override
+            public int hashCode() {
+                return 1;
             }
         }
 

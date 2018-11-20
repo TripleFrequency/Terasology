@@ -168,15 +168,14 @@ public final class ReflectionUtil {
         Class targetClass = getClassOfType(target);
         if (superClass.equals(getClassOfType(targetClass.getGenericSuperclass()))) {
             Type superType = targetClass.getGenericSuperclass();
-            if (superType instanceof ParameterizedType) {
-                if (((ParameterizedType) superType).getRawType().equals(superClass)) {
-                    Type boundType = ((ParameterizedType) superType).getActualTypeArguments()[index];
-                    if (boundType instanceof Class) {
-                        return (Class<?>) boundType;
-                    } else {
-                        return null;
-                    }
+            if (superType instanceof ParameterizedType && ((ParameterizedType) superType).getRawType().equals(superClass) ) {
+                Type boundType = ((ParameterizedType) superType).getActualTypeArguments()[index];
+                if (boundType instanceof Class) {
+                    return (Class<?>) boundType;
+                } else {
+                    return null;
                 }
+
             }
         }
         return getTypeParameterForSuperClass(targetClass.getGenericSuperclass(), superClass, index);
@@ -185,14 +184,12 @@ public final class ReflectionUtil {
     private static <T> Class<?> getTypeParameterForSuperInterface(Type target, Class<T> superClass, int index) {
         Class targetClass = getClassOfType(target);
         for (Type superType : targetClass.getGenericInterfaces()) {
-            if (superType instanceof ParameterizedType) {
-                if (((ParameterizedType) superType).getRawType().equals(superClass)) {
-                    Type boundType = ((ParameterizedType) superType).getActualTypeArguments()[index];
-                    if (boundType instanceof Class) {
-                        return (Class<?>) boundType;
-                    } else {
-                        return null;
-                    }
+            if (superType instanceof ParameterizedType && ((ParameterizedType) superType).getRawType().equals(superClass) ) {
+                Type boundType = ((ParameterizedType) superType).getActualTypeArguments()[index];
+                if (boundType instanceof Class) {
+                    return (Class<?>) boundType;
+                } else {
+                    return null;
                 }
             }
         }

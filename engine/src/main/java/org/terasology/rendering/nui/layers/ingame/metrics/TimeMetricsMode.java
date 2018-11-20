@@ -39,11 +39,6 @@ public abstract class TimeMetricsMode extends MetricsMode {
         format.setMaximumFractionDigits(2);
     }
 
-    public TimeMetricsMode(String name, int limit, String unit) {
-        this(name, limit);
-        this.limit = limit;
-    }
-
     @Override
     public String getMetrics() {
         StringBuilder builder = new StringBuilder();

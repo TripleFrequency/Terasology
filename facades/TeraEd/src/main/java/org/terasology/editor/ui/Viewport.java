@@ -15,9 +15,6 @@
  */
 package org.terasology.editor.ui;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.awt.*;
 
 /**
@@ -25,8 +22,6 @@ import java.awt.*;
  */
 @SuppressWarnings("serial")
 public final class Viewport extends Canvas {
-
-    private static final Logger logger = LoggerFactory.getLogger(Viewport.class);
 
     public Viewport() {
         setSize(1280, 720);

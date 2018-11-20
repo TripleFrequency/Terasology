@@ -56,7 +56,8 @@ public final class OpenALStreamingSound extends StreamingSound {
     }
 
     public int[] getBuffers() {
-        return this.internalResources.buffers;
+        InternalResources temp = internalResources;
+        return temp.buffers;
     }
 
     public boolean updateBuffer(int buffer) {
