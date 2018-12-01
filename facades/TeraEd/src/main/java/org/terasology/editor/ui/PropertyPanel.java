@@ -32,7 +32,6 @@ public class PropertyPanel extends JPanel {
     private PropertyProvider activePropertyProvider;
 
     private TitledBorder border;
-    private String title = "";
 
     public PropertyPanel() {
         border = new TitledBorder("");
@@ -41,7 +40,6 @@ public class PropertyPanel extends JPanel {
 
     public PropertyPanel(String title) {
         this();
-        this.title = title;
         border.setTitle(title);
     }
 
@@ -78,7 +76,6 @@ public class PropertyPanel extends JPanel {
     }
 
     public void setTitle(String title) {
-        this.title = title;
         border.setTitle(title);
         revalidate();
     }

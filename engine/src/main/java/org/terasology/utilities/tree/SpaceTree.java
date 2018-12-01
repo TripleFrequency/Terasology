@@ -210,10 +210,8 @@ public class SpaceTree<T> extends AbstractDimensionalMap<T> {
             }
 
             for (Node subNode : node.subNodes) {
-                if (subNode != null) {
-                    if (distanceFunction.getPointRegionDistance(position, subNode.minValues, subNode.maxValues) <= treeSearch.maxDistance) {
-                        executeSearchInNode(position, subNode, treeSearch);
-                    }
+                if (subNode != null && distanceFunction.getPointRegionDistance(position, subNode.minValues, subNode.maxValues) <= treeSearch.maxDistance) {
+                    executeSearchInNode(position, subNode, treeSearch);
                 }
             }
         } else {
@@ -371,10 +369,8 @@ public class SpaceTree<T> extends AbstractDimensionalMap<T> {
             increment *= 2;
         }
 
-        if (index == 0) {
-            if (distanceFunction.getDistance(position, center) == 0) {
-                return -1;
-            }
+        if (index == 0 && distanceFunction.getDistance(position, center) == 0 ) {
+            return -1;
         }
         return index;
     }
@@ -465,7 +461,8 @@ public class SpaceTree<T> extends AbstractDimensionalMap<T> {
          * @param value           The value which the NodeEntry will hold
          */
         private NodeEntry(float[] position, T value) {
-            this.position = position;
+            float[] temp = position.clone();
+            this.position = temp;
             this.value = value;
         }
     }
@@ -490,10 +487,13 @@ public class SpaceTree<T> extends AbstractDimensionalMap<T> {
          * @param maxValues     The maximum values of the node in terms of position
          */
         private Node(float[] position, T value, float[] minValues, float[] maxValues) {
+            float[] tempMaxValues = maxValues.clone();
+            float[] tempMinValues = minValues.clone();
+
             nodeBucket = new HashSet<>();
             nodeBucket.add(new NodeEntry<>(position, value));
-            this.minValues = minValues;
-            this.maxValues = maxValues;
+            this.minValues = tempMinValues;
+            this.maxValues = tempMaxValues;
         }
 
         /**

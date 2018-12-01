@@ -41,25 +41,7 @@ public final class GameConfigurationMetric extends Metric {
 
     private Map<String, Boolean> bindingMap;
 
-    @TelemetryField
-    private String worldGenerator;
-
-    @TelemetryField
-    private String networkMode;
-
-    @TelemetryField
-    private String language;
-
-    @TelemetryField
-    private float playerHeight;
-
-    @TelemetryField
-    private float playerEyeHeight;
-
-    private Context context;
-
     public GameConfigurationMetric(Context context) {
-        this.context = context;
         bindingMap = context.get(Config.class).getTelemetryConfig().getMetricsUserPermissionConfig().getBindingMap();
     }
 
@@ -72,31 +54,11 @@ public final class GameConfigurationMetric extends Metric {
 
     @Override
     public Map<String, ?> createTelemetryFieldToValue() {
-        fetchWorldGenerator();
-        fetchNetworkMode();
-        fetchConfig();
+
 
         return super.createTelemetryFieldToValue();
     }
 
-    private void fetchWorldGenerator() {
-        WorldGenerator generator = CoreRegistry.get(WorldGenerator.class);
-        if (generator != null) {
-            worldGenerator = generator.getUri().toString();
-        }
-    }
 
-    private void fetchNetworkMode() {
-        NetworkSystem networkSystem = context.get(NetworkSystem.class);
-        networkMode = networkSystem.getMode().toString();
-    }
 
-    private void fetchConfig() {
-        Config config = context.get(Config.class);
-        language = config.getSystem().getLocale().toString();
-
-        PlayerConfig playerConfig = config.getPlayer();
-        playerHeight = playerConfig.getHeight();
-        playerEyeHeight = playerConfig.getEyeHeight();
-    }
 }

@@ -106,7 +106,8 @@ public class TextureData implements AssetData {
     }
 
     public ByteBuffer[] getBuffers() {
-        return data;
+        ByteBuffer[] temp = data.clone();
+        return temp;
     }
 
     public void setFilterMode(Texture.FilterMode filterMode) {

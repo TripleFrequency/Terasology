@@ -15,6 +15,9 @@
  */
 package org.terasology.documentation.apiScraper;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -24,6 +27,7 @@ import java.io.FileWriter;
  */
 public final class ApiSaver {
 
+    private static final Logger logger = LoggerFactory.getLogger(ApiSaver.class);
     private ApiSaver() {
 
     }
@@ -34,6 +38,6 @@ public final class ApiSaver {
         writer.write(api.toString());
         writer.flush();
         writer.close();
-        System.out.println("API file is ready!");
+        logger.info("API file is ready!");
     }
 }

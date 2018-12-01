@@ -55,15 +55,7 @@ public class DoorSystem extends BaseComponentSystem {
     @In
     private WorldProvider worldProvider;
     @In
-    private BlockEntityRegistry blockEntityRegistry;
-    @In
     private EntityManager entityManager;
-    @In
-    private AudioManager audioManager;
-    @In
-    private InventoryManager inventoryManager;
-    @In
-    private EntitySystemLibrary entitySystemLibrary;
 
     @ReceiveEvent(components = {DoorComponent.class, ItemComponent.class})
     public void placeDoor(ActivateEvent event, EntityRef entity) {
@@ -151,10 +143,8 @@ public class DoorSystem extends BaseComponentSystem {
 
     private Side determineAttachSide(Side facingDir, Side offsetDir, Vector3i bottomBlockPos, Vector3i topBlockPos) {
         Side attachSide = null;
-        if (offsetDir.isHorizontal()) {
-            if (canAttachTo(topBlockPos, offsetDir.reverse()) && canAttachTo(bottomBlockPos, offsetDir.reverse())) {
-                attachSide = offsetDir.reverse();
-            }
+        if (offsetDir.isHorizontal() && canAttachTo(topBlockPos, offsetDir.reverse()) && canAttachTo(bottomBlockPos, offsetDir.reverse()) ) {
+            attachSide = offsetDir.reverse();
         }
         if (attachSide == null) {
             Side clockwise = facingDir.yawClockwise(1);

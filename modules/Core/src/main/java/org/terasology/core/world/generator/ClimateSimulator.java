@@ -26,8 +26,8 @@ public class ClimateSimulator {
     private ClimateSimulatorData climateDistanceData;
 
     ClimateSimulator(float[][] hm) {
-
-        climateDistanceData = new ClimateSimulatorData(hm, hm.length);
+        float[][]hmtemp = hm.clone();
+        climateDistanceData = new ClimateSimulatorData(hmtemp, hmtemp.length);
 
         //Ready the Climate Map
         climate = new float[climateDistanceData.getSize()][climateDistanceData.getSize()];
@@ -62,10 +62,12 @@ public class ClimateSimulator {
     }
 
     public float[][] getClimate() {
-        return climate;
+        float[][] temp = climate.clone();
+        return temp;
     }
 
     public float[][] getHumidity() {
-        return humidity;
+        float[][] temp = humidity.clone();
+        return temp;
     }
 }

@@ -64,5 +64,10 @@ public class ServiceApiRequestTests {
             DummySerializableObject o = (DummySerializableObject) other;
             return fieldA.equals(o.fieldA) && fieldB == o.fieldB;
         }
+
+        @Override
+        public int hashCode() {
+            return 1;
+        }
     }
 }

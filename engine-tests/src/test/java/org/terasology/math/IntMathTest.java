@@ -20,6 +20,8 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.terasology.config.Config;
 import org.terasology.context.internal.ContextImpl;
 import org.terasology.context.internal.MockContext;
@@ -33,6 +35,9 @@ import static org.junit.Assert.assertEquals;
 /**
  */
 public class IntMathTest {
+    private static final Logger logger = LoggerFactory.getLogger(IntMathTest.class);
+
+
     public IntMathTest() {
     }
 
@@ -142,7 +147,8 @@ public class IntMathTest {
             value <<= 1;
         }
 
-        System.out.println(powersOfTwo.get(powersOfTwo.size() - 1));
+        logger.info((powersOfTwo.get(powersOfTwo.size() - 1)).toString());
+
 
         return powersOfTwo;
     }

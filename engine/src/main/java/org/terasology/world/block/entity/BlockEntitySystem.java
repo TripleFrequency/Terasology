@@ -15,7 +15,6 @@
  */
 package org.terasology.world.block.entity;
 
-import org.terasology.audio.AudioManager;
 import org.terasology.audio.StaticSound;
 import org.terasology.audio.events.PlaySoundEvent;
 import org.terasology.entitySystem.entity.EntityBuilder;
@@ -59,9 +58,6 @@ public class BlockEntitySystem extends BaseComponentSystem {
 
     @In
     private EntityManager entityManager;
-
-    @In
-    private AudioManager audioManager;
 
     @In
     private BlockManager blockManager;

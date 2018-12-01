@@ -190,29 +190,6 @@ public class LocalChunkProviderTest {
         assertThat(((OnActivatedBlocks) event).getBlockPositions(), hasItem(new Vector3i(1, 2, 3)));
     }
 
-    private static void markAllChunksAsReady(final ChunkCache chunkCache) {
-        markAllChunksAsReadyExcludingPosition(chunkCache, null);
-    }
-
-    private static void markAllChunksAsReadyExcludingPosition(final ChunkCache chunkCache, final Vector3i positionToExclude) {
-        chunkCache.getAllChunks().stream()
-                .filter(chunk -> !chunk.getPosition().equals(positionToExclude))
-                .forEach(c -> when(c.isReady()).thenReturn(true));
-    }
-
-    private static void generateMockChunkCubeWithSideWidthAround(final Vector3i position, final int sideWidth, final ChunkCache chunkCache) {
-        for (int x = position.getX() - sideWidth; x <= position.getX() + sideWidth; x++) {
-            for (int y = position.getY() - sideWidth; y <= position.getY() + sideWidth; y++) {
-                for (int z = position.getZ() - sideWidth; z <= position.getZ() + sideWidth; z++) {
-                    if (x == position.getX() && y == position.getY() && z == position.getZ()) {
-                        //dont override the inner chunk
-                        continue;
-                    }
-                    chunkCache.put(new Vector3i(x, y, z), mockChunkAt(x, y, z));
-                }
-            }
-        }
-    }
 
     private static EntityStore createEntityStoreWithComponents(Component... components) {
         return createEntityStoreWithPrefabAndComponents(null, components);
@@ -229,18 +206,6 @@ public class LocalChunkProviderTest {
     private static Chunk mockChunkAt(final int x, final int y, final int z) {
         final Chunk chunk = mock(Chunk.class);
         when(chunk.getPosition()).thenReturn(new Vector3i(x, y, z));
-        return chunk;
-    }
-
-
-    private static Chunk mockChunkWithReadinessStateAt(final int x, final int y, final int z) {
-        final Chunk chunk = mockChunkAt(x, y, z);
-        AtomicBoolean chunkReady = new AtomicBoolean();
-        when(chunk.isReady()).thenAnswer(i -> chunkReady.get());
-        doAnswer(i -> {
-            chunkReady.set(true);
-            return null;
-        }).when(chunk).markReady();
         return chunk;
     }
 

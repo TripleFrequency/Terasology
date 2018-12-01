@@ -15,7 +15,7 @@
  */
 package org.terasology.logic.inventory.block;
 
-import org.terasology.entitySystem.entity.EntityManager;
+
 import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.entitySystem.event.ReceiveEvent;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
@@ -41,8 +41,6 @@ import org.terasology.world.block.items.OnBlockToItem;
 @RegisterSystem(RegisterMode.AUTHORITY)
 public class BlockInventorySystem extends BaseComponentSystem {
 
-    @In
-    private EntityManager entityManager;
     @In
     private InventoryManager inventoryManager;
 

@@ -43,7 +43,7 @@ public final class TeraEd extends JWindow {
 
     private MainWindow mainWindow;
     private TerasologyEngine engine;
-    private final Logger logger = LoggerFactory.getLogger(TeraEd.class);
+    private static final Logger logger = LoggerFactory.getLogger(TeraEd.class);
 
     private SceneProperties sceneProperties;
 
@@ -77,7 +77,7 @@ public final class TeraEd extends JWindow {
                     .add(new LwjglInput())
                     .add(lwjglPortlet).build();
             sceneProperties = new SceneProperties(engine);
-            mainWindow = new MainWindow(this, engine);
+            mainWindow = new MainWindow(this);
             lwjglPortlet.setCustomViewport(mainWindow.getViewport());
 
             engine.subscribeToStateChange(mainWindow);

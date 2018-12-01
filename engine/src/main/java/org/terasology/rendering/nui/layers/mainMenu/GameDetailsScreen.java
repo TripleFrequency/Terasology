@@ -72,16 +72,12 @@ public class GameDetailsScreen extends CoreScreenLayer {
 
     public static final ResourceUrn ASSET_URI = new ResourceUrn("engine:gameDetailsScreen");
 
-    private static final Logger logger = LoggerFactory.getLogger(SelectGameScreen.class);
-
     private static final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @In
     private ModuleManager moduleManager;
     @In
     private TranslationSystem translationSystem;
-    @In
-    private Context context;
 
     private GameInfo gameInfo;
     private UIList<ModuleSelectionInfo> gameModules;

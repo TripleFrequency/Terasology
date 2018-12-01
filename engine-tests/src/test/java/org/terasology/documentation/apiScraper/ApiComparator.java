@@ -16,6 +16,8 @@
 package org.terasology.documentation.apiScraper;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.terasology.documentation.apiScraper.util.ApiMethod;
 
 import java.io.BufferedReader;
@@ -33,6 +35,8 @@ import java.util.List;
  * Detects API changes between two instances of a scanned code base.
  */
 public final class ApiComparator {
+
+    private static final Logger logger = LoggerFactory.getLogger(ApiComparator.class);
 
     private static final String ORIGINAL_API_FILE = "API_file.txt";
     private static final String NEW_API_FILE = "New_API_file.txt";
@@ -67,10 +71,10 @@ public final class ApiComparator {
             br2.close();
 
             //Begins comparison and increases report
-            System.out.println("=================================================================");
+            logger.info("=================================================================");
             checkClassAdditionAndDeletion(originalApi, newApi);
             checkMethodChanges(originalApi, newApi);
-            System.out.println("REPORT FINISHED");
+            logger.info("REPORT FINISHED");
         }
     }
 
@@ -126,16 +130,16 @@ public final class ApiComparator {
     }
 
     private static void checkClassAdditionAndDeletion(Map<String, Collection<ApiMethod>> originalApi, Map<String, Collection<ApiMethod>> newApi) {
-        System.out.println("Checking Class Addition and Deletion");
+        logger.info("Checking Class Addition and Deletion");
         for (String className : originalApi.keySet()) {
             if (!newApi.containsKey(className)) {
-                System.out.println("MAJOR INCREASE, DELETION OF " + className);
+                logger.info("MAJOR INCREASE, DELETION OF " + className);
             }
         }
 
         for (String className : newApi.keySet()) {
             if (!originalApi.containsKey(className)) {
-                System.out.println("MINOR INCREASE, ADDITION OF " + className);
+                logger.info("MINOR INCREASE, ADDITION OF " + className);
             }
         }
     }
@@ -147,7 +151,7 @@ public final class ApiComparator {
      */
     private static void checkMethodChanges(Map<String, Collection<ApiMethod>> originalApi,
                                            Map<String, Collection<ApiMethod>> newApi) {
-        System.out.println("Checking Method Changes");
+        logger.info("Checking Method Changes");
         Collection<ApiMethod> originalMethods;
         Collection<ApiMethod> newMethods;
         for (String className : originalApi.keySet()) {
@@ -171,9 +175,9 @@ public final class ApiComparator {
                             if (auxMethod2.getName().equals("")) {
                                 checkMethodIncrease(method1, method2);
                             } else if (isInterfaceOrAbstract(method2.getClassName())) {
-                                System.out.println("MINOR INCREASE, NEW OVERLOADED METHOD " + method2.getName() +
+                                logger.info("MINOR INCREASE, NEW OVERLOADED METHOD " + method2.getName() +
                                         " ON " + method2.getClassName() + "\nNEW PARAMETERS: " + method2.getParametersType());
-                                System.out.println("=================================================================");
+                                logger.info("=================================================================");
                             }
 
                         } else {
@@ -186,7 +190,7 @@ public final class ApiComparator {
                 if (!found) {
                     if (isInterfaceOrAbstract(method2.getClassName())) {
                         if (method2.getName().endsWith("(ABSTRACT METHOD)")) {
-                            System.out.println("MAJOR INCREASE, NEW ABSTRACT METHOD " + method2.getName() + " ON " + method2.getClassName());
+                            logger.info("MAJOR INCREASE, NEW ABSTRACT METHOD " + method2.getName() + " ON " + method2.getClassName());
                         } else {
                             String minorOrMajor;
                             if (method2.getClassName().endsWith("(INTERFACE)")) {
@@ -198,12 +202,12 @@ public final class ApiComparator {
                             } else {
                                 minorOrMajor = "MINOR";
                             }
-                            System.out.println(minorOrMajor + " INCREASE, NEW METHOD " + method2.getName() + " ON " + method2.getClassName());
+                            logger.info(minorOrMajor + " INCREASE, NEW METHOD " + method2.getName() + " ON " + method2.getClassName());
                         }
                     } else {
-                        System.out.println("MINOR INCREASE, NEW METHOD " + method2.getName() + " ON " + method2.getClassName());
+                        logger.info("MINOR INCREASE, NEW METHOD " + method2.getName() + " ON " + method2.getClassName());
                     }
-                    System.out.println("=================================================================");
+                    logger.info("=================================================================");
                 }
             }
         }
@@ -235,15 +239,14 @@ public final class ApiComparator {
                         ApiMethod result = getMethodWithSameNameAndParameters(method, newMethodsWithSameName);
                         if (result.getName().equals("")) {
                             checkedMethods.add(method.getName());
-                            System.out.println("MAJOR INCREASE, OVERLOADED METHOD DELETION:  " + method.getName()
+                            logger.info("MAJOR INCREASE, OVERLOADED METHOD DELETION:  " + method.getName()
                                     + " ON " + method.getClassName() + "\nPARAMETERS: " + method.getParametersType());
-
                         }
                     }
                 }
             }
             if (!found) {
-                System.out.println("MAJOR INCREASE, METHOD DELETION:  " + method1.getName() + " ON " + method1.getClassName());
+                logger.info("MAJOR INCREASE, METHOD DELETION:  " + method1.getName() + " ON " + method1.getClassName());
             }
         }
     }
@@ -273,10 +276,10 @@ public final class ApiComparator {
      */
     private static void check(String s1, String s2, String methodName, String className) {
         if (!s1.equals(s2)) {
-            System.out.println("MAJOR INCREASE ON : " + methodName + " " + className);
-            System.out.println("ORIGINAL: " + s1);
-            System.out.println("NEW: " + s2);
-            System.out.println("=================================================================");
+            logger.info("MAJOR INCREASE ON : " + methodName + " " + className);
+            logger.info("ORIGINAL: " + s1);
+            logger.info("NEW: " + s2);
+            logger.info("=================================================================");
         }
     }
 

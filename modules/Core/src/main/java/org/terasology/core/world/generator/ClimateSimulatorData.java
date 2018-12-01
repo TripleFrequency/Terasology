@@ -28,12 +28,14 @@ public class ClimateSimulatorData {
     private int size;
 
     public ClimateSimulatorData(float[][] heightmap, int size) {
-        this.heightmap = heightmap;
+        float[][] temp = heightmap.clone();
+        this.heightmap = temp;
         this.size = size;
     }
 
     public float[][] getHeightmap() {
-        return heightmap;
+        float[][] temp = heightmap.clone();
+        return temp;
     }
 
     public int getSize() {

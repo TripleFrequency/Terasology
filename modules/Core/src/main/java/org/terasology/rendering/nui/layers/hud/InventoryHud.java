@@ -15,7 +15,7 @@
  */
 package org.terasology.rendering.nui.layers.hud;
 
-import org.terasology.engine.Time;
+
 import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.logic.inventory.SelectedInventorySlotComponent;
 import org.terasology.logic.players.LocalPlayer;
@@ -27,9 +27,6 @@ public class InventoryHud extends CoreHudWidget {
 
     @In
     private LocalPlayer localPlayer;
-
-    @In
-    private Time time;
 
     private UICrosshair crosshair;
 

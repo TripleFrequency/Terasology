@@ -69,8 +69,6 @@ import org.terasology.utilities.random.Random;
 @RegisterSystem(RegisterMode.AUTHORITY)
 public class HealthAuthoritySystem extends BaseComponentSystem implements UpdateSubscriberSystem {
 
-    private static final Logger logger = LoggerFactory.getLogger(HealthAuthoritySystem.class);
-
     @In
     private EntityManager entityManager;
 
@@ -263,14 +261,12 @@ public class HealthAuthoritySystem extends BaseComponentSystem implements Update
         horizVelocity.y = 0;
         float velocity = horizVelocity.length();
 
-        if (velocity > healthComponent.horizontalDamageSpeedThreshold) {
-            if (characterSounds.lastSoundTime + CharacterSoundSystem.MIN_TIME < time.getGameTimeInMs()) {
-                StaticSound sound = random.nextItem(characterSounds.landingSounds);
-                if (sound != null) {
-                    entity.send(new PlaySoundEvent(sound, characterSounds.landingVolume));
-                    characterSounds.lastSoundTime = time.getGameTimeInMs();
-                    entity.saveComponent(characterSounds);
-                }
+        if (velocity > healthComponent.horizontalDamageSpeedThreshold && characterSounds.lastSoundTime + CharacterSoundSystem.MIN_TIME < time.getGameTimeInMs() ) {
+            StaticSound sound = random.nextItem(characterSounds.landingSounds);
+            if (sound != null) {
+                entity.send(new PlaySoundEvent(sound, characterSounds.landingVolume));
+                characterSounds.lastSoundTime = time.getGameTimeInMs();
+                entity.saveComponent(characterSounds);
             }
         }
     }

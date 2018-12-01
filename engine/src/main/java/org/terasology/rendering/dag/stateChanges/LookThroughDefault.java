@@ -33,6 +33,12 @@ class LookThroughDefault implements StateChange {
         return (obj instanceof LookThroughDefault);
     }
 
+    // get rid of pmd warning
+    @Override
+    public int hashCode() {
+        return 1;
+    }
+
     @Override
     public StateChange getDefaultInstance() {
         return this;

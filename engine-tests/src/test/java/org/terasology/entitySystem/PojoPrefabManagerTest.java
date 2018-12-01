@@ -52,7 +52,6 @@ public class PojoPrefabManagerTest {
 
     public static final String PREFAB_NAME = "unittest:myprefab";
     private EntitySystemLibrary entitySystemLibrary;
-    private ComponentLibrary componentLibrary;
     private PojoPrefabManager prefabManager;
 
     @Before
@@ -66,7 +65,6 @@ public class PojoPrefabManagerTest {
         lib.add(Vector3f.class, new Vector3fTypeHandler());
         lib.add(Quat4f.class, new Quat4fTypeHandler());
         entitySystemLibrary = new EntitySystemLibrary(context, lib);
-        componentLibrary = entitySystemLibrary.getComponentLibrary();
 
         ModuleAwareAssetTypeManager assetTypeManager = new ModuleAwareAssetTypeManager();
         assetTypeManager.registerCoreAssetType(Prefab.class,

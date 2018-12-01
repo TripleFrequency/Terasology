@@ -76,7 +76,7 @@ public final class StorageServiceWorker {
     }
 
     void logMessage(boolean warning, String messageId, Object... args) {
-        notificationBuffer.push(new ConsoleNotification(messageId, args));
+        notificationBuffer.push(new ConsoleNotification(messageId));
     }
 
     private synchronized void performAction(Action action, StorageServiceWorkerStatus requiredStatus) {
@@ -193,9 +193,11 @@ public final class StorageServiceWorker {
     private static final class ConsoleNotification {
         private String messageId;
         private Object[] args;
-        private ConsoleNotification(String messageId, Object[] args) {
+        Object[] temp = args.clone();
+
+        private ConsoleNotification(String messageId) {
             this.messageId = messageId;
-            this.args = args;
+            this.args = temp;
         }
     }
 }

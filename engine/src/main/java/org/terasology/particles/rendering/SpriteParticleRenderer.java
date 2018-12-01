@@ -77,10 +77,10 @@ public class SpriteParticleRenderer implements RenderSystem {
 
 
     protected void finalize() throws Throwable {
-        super.finalize();
         if (null != drawUnitQuad) {
             drawUnitQuad.dispose();
         }
+        super.finalize();
     }
 
     protected void dispose() {
@@ -236,9 +236,9 @@ public class SpriteParticleRenderer implements RenderSystem {
         }
 
         @Override
-        public void finalize() throws Throwable {
-            super.finalize();
+        protected void finalize() throws Throwable {
             dispose();
+            super.finalize();
         }
     }
 }

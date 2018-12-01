@@ -66,7 +66,6 @@ public class EntityAwareWorldProvider extends AbstractWorldProviderDecorator imp
     private static final Logger logger = LoggerFactory.getLogger(EntityAwareWorldProvider.class);
     private static final Set<Class<? extends Component>> COMMON_BLOCK_COMPONENTS =
             ImmutableSet.of(NetworkComponent.class, BlockComponent.class, LocationComponent.class);
-    private static final float BLOCK_REGEN_SECONDS = 4.0f;
 
     private EngineEntityManager entityManager;
 
@@ -220,10 +219,8 @@ public class EntityAwareWorldProvider extends AbstractWorldProviderDecorator imp
         }
 
         for (ComponentMetadata<?> metadata : entityManager.getComponentLibrary().iterateComponentMetadata()) {
-            if (metadata.isForceBlockActive() && ignoreComponent != metadata.getType()) {
-                if (entity.hasComponent(metadata.getType())) {
-                    return false;
-                }
+            if (metadata.isForceBlockActive() && ignoreComponent != metadata.getType() && entity.hasComponent(metadata.getType()) ) {
+                return false;
             }
         }
         return true;
@@ -269,38 +266,9 @@ public class EntityAwareWorldProvider extends AbstractWorldProviderDecorator imp
 
         blockComponent.setBlock(type);
         blockEntity.saveComponent(blockComponent);
-
-        for (Component comp : newEntityBuilder.iterateComponents()) {
-            copyIntoPrefab(blockEntity, comp, retainComponents);
-        }
     }
 
-    @SuppressWarnings("unchecked")
-    private <T extends Component> void copyIntoPrefab(EntityRef blockEntity, T comp, Set<Class<? extends Component>> retainComponents) {
-        ComponentMetadata<T> metadata = entityManager.getComponentLibrary().getMetadata((Class<T>) comp.getClass());
-        if (!blockEntity.hasComponent(comp.getClass())) {
-            blockEntity.addComponent(metadata.copyRaw(comp));
-        } else if (!metadata.isRetainUnalteredOnBlockChange() && !retainComponents.contains(metadata.getType())) {
-            updateComponent(blockEntity, metadata, comp);
-        }
-    }
 
-    private <T extends Component> void updateComponent(EntityRef blockEntity, ComponentMetadata<T> metadata, T targetComponent) {
-        T currentComp = blockEntity.getComponent(metadata.getType());
-        if (currentComp != null) {
-            boolean changed = false;
-            for (FieldMetadata<T, ?> field : metadata.getFields()) {
-                Object newVal = field.getValue(targetComponent);
-                if (!Objects.equal(field.getValue(currentComp), newVal)) {
-                    field.setValue(currentComp, newVal);
-                    changed = true;
-                }
-            }
-            if (changed) {
-                blockEntity.saveComponent(currentComp);
-            }
-        }
-    }
 
     private EntityRef createBlockEntity(Vector3i blockPosition, Block block) {
         EntityBuilder builder = entityManager.newBuilder(block.getPrefab().orElse(null));

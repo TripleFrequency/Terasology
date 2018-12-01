@@ -23,7 +23,6 @@ public class ChatSystemTest {
 
     @Test
     public void ifPassedMockSenderAndString_whenSay_returnSent() {
-        ChatSystem chat = new ChatSystem();
         String[] message = {"Hello, World!"};
         when(cs.say(er, message)).thenReturn("Message sent.");
 

@@ -46,9 +46,6 @@ public class ArrowAction extends BaseComponentSystem {
     private Physics physicsRenderer;
 
     @In
-    private BlockEntityRegistry blockEntityRegistry;
-
-    @In
     private EntityManager entityManager;
 
     @In

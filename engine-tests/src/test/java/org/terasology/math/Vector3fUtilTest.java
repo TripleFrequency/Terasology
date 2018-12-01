@@ -53,7 +53,9 @@ public class Vector3fUtilTest {
     public void testVector3fSafeNormalize() throws Exception {
         double safeNormalizeY = Vector3fUtil.safeNormalize(direction, out).y;
         Vector3f expected = out.set(direction).normalize();
-        if (expected.length() < 0.000001f) out.set(0, 0, 0);
+        if (expected.length() < 0.000001f) {
+            out.set(0, 0, 0);
+        }
         double expectedY = expected.y;
         assertEquals(expectedY, safeNormalizeY, 0.0001);
     }
